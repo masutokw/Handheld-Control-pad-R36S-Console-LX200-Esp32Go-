@@ -39,8 +39,8 @@
 
 #define NORTH_BTN 8
 #define SOUTH_BTN 9
-#define WEST_BTN 17
-#define EAST_BTN 11
+#define WEST_BTN 11
+#define EAST_BTN 10
 #define JOY1_BTN 14
 #define SELECT_BTN 12
 #define START_BTN 13
@@ -49,6 +49,7 @@
 #define A_BTN 1
 #define B_BTN  0
 #define FN_BTN 16
+#define OPEN_DB "/roms/esp32go/deep.db3"
 
 #elif TARGET==PC
 #define FN_BTN 90
