@@ -10,9 +10,11 @@ LDFLAGS = -L/opt/homebrew/lib -lm -lsqlite3  -lSDL2 -lSDL2_ttf -lGLEW -lnova
 OUTPATH = .
 else
 INCLUDES = -I. -I/usr/include
-DEFINES = -DK36S
+#Change to -DTARGET=2 for ARKOS4
+DEFINES = -DTARGET=1
 LDFLAGS = -lm -lsqlite3  -lSDL2 -lSDL2_ttf -lGLEW -lGL -lnova
 OUTPATH = /roms/esp32go
+
 endif
 
 Esptest: esp32go.c

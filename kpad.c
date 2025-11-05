@@ -11,12 +11,12 @@ const  char *labels[] =
     TRACK, ".", "0",":","-",
     UNTRACK,HOME,CONNECT,CLOSE_CONN,ALING,
 
-   /* MODE,STARS, PARK,UNPARK,ALINGC,
-    GOTO,SUN,MERCURY,VENUS,MOON,
-    SYNC, MARS, JUPITER,SATURN,URANUS,
-    "Halt",NEPTUNE,PLUTO," ",COMET,
-    TRACK, EAST,WEST,N_POLE,SOUTH,
-    UNTRACK,ZENITH,HOME,SETHOME,ALING,*/
+    /* MODE,STARS, PARK,UNPARK,ALINGC,
+     GOTO,SUN,MERCURY,VENUS,MOON,
+     SYNC, MARS, JUPITER,SATURN,URANUS,
+     "Halt",NEPTUNE,PLUTO," ",COMET,
+     TRACK, EAST,WEST,N_POLE,SOUTH,
+     UNTRACK,ZENITH,HOME,SETHOME,ALING,*/
 
     MODE,STARS, N_POLE,SUN,MOON,
     GOTO,SYNC, ZENITH, MERCURY,VENUS,
@@ -42,16 +42,16 @@ const  char *labels[] =
     NORMAL_SYNC,GOTO,ALING," "," ",
 
     GOTO,SEARCH,SYNC,NGC,MESSIER,IC,COMET,CLEAR,
-   "a","b","c","d","e" ,"1","2","3",
-   "f","g","h", "i","j","4","5","6",
-   "k","l", "m","n","o","7","8","9",
-   "p", "q","r","s","t","/","0","-",
-   "u","w","v","x","y","z"," ",
+    "a","b","c","d","e","1","2","3",
+    "f","g","h", "i","j","4","5","6",
+    "k","l", "m","n","o","7","8","9",
+    "p", "q","r","s","t","/","0","-",
+    "u","w","v","x","y","z"," ",
 
-   ".","*",
+    ".","*",
     "r","s","t","u"
 
-   };
+};
 
 
 
@@ -62,7 +62,7 @@ MenuItem alp_items[ROWS*ALP_COLS] ;
 void init_mat(MenuItem *items)
 {
     int idx = 0;
-     int cell_W= (WINDOW_WIDTH -COLS*8)/COLS;
+    int cell_W= (WINDOW_WIDTH -COLS*8)/COLS;
     for (int r = 0; r < ROWS; r++)
 
     {
@@ -81,7 +81,7 @@ void init_mat(MenuItem *items)
 void init_mat_cus(MenuItem *items,int rows,int cols,int offset)
 {
     int idx = offset;
-     int cell_W= (WINDOW_WIDTH -(cols+1)*MARGIN_X)/cols;
+    int cell_W= (WINDOW_WIDTH -(cols+1)*MARGIN_X)/cols;
     for (int r = 0; r < rows; r++)
 
     {
@@ -127,25 +127,30 @@ void changemat_cus(int a,MenuItem *items,int rows,int cols)
     }
 }
 
-void readpad(SDL_Event e,int *last_axis, int *sel,int bsize)
+int readpad(SDL_Event e,int *last_axis, int *sel,int bsize)
 {
 
-    if (e.jaxis.value < -28000 && *last_axis != -1)
+    if (e.jaxis.value < -JOY_TRIGGER_ON && *last_axis != -1)
     {
         *sel = (*sel - 1 + bsize) % bsize;
         *last_axis = -1;
     }
-    else if (e.jaxis.value > 28000 && *last_axis != 1)
+    else if (e.jaxis.value > JOY_TRIGGER_ON && *last_axis != 1)
     {
         *sel = (*sel + 1) % bsize;
         *last_axis = 0;
     }
-    else if (e.jaxis.value > -18000 && e.jaxis.value < 18000)
+    else if (e.jaxis.value > -JOY_TRIGGER_OFF && e.jaxis.value < JOY_TRIGGER_OFF)
     {
         *last_axis = 0;
     }
+    else
+    {
+        printf("%d empty joy event\n",*sel);
+        return 0;
+    }
 
-
+    return 1;
 }
 
 

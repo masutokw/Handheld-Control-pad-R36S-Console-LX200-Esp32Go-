@@ -570,6 +570,7 @@ int main(int argc, char *argv[])
     calcular_posicion(SEARCH);
 
     //unsigned int cn=0;
+    int jmove=1;
 
     while (running)
 
@@ -611,11 +612,11 @@ int main(int argc, char *argv[])
             {
                 if (e.jaxis.axis == 0)
                 {
-                    readpad( e,&last_haxis,&sel_col,pad_page==4? ALP_COLS:COLS);
+                    jmove=readpad( e,&last_haxis,&sel_col,pad_page==4? ALP_COLS:COLS);
                 }
                 else if (e.jaxis.axis == 1)
                 {
-                    readpad( e,&last_vaxis,&sel_row,ROWS);
+                    jmove=readpad( e,&last_vaxis,&sel_row,ROWS);
                 }
 
 
@@ -756,7 +757,9 @@ int main(int argc, char *argv[])
             else if (e.type == SDL_USEREVENT) ;//printf("User event %d\r\n",e.user.code);
 
         }
-        drawMainScreen(renderer,sel_row,sel_col);
+
+         if ((e.type == SDL_JOYAXISMOTION) && (jmove==0)) {printf("not refresh screen \n");} else
+         drawMainScreen(renderer,sel_row,sel_col);
 
     }
 

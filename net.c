@@ -12,10 +12,10 @@ int readcc(void)
     char c = 'P';
     //  size_t len = 0;
     //  ssize_t read;
-#ifdef K36S
-    fp = fopen("/roms/esp32go/conf.cfg", "r");
-#else
+#if TARGET==PC
     fp = fopen("conf.cfg", "r");
+#else
+    fp = fopen("/roms/esp32go/conf.cfg", "r");
 #endif
     if (fp == NULL)
         if (fp == NULL)
