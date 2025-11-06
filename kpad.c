@@ -129,6 +129,7 @@ void changemat_cus(int a,MenuItem *items,int rows,int cols)
 
 int readpad(SDL_Event e,int *last_axis, int *sel,int bsize)
 {
+    int temp=*last_axis;
 
     if (e.jaxis.value < -JOY_TRIGGER_ON && *last_axis != -1)
     {
@@ -138,19 +139,15 @@ int readpad(SDL_Event e,int *last_axis, int *sel,int bsize)
     else if (e.jaxis.value > JOY_TRIGGER_ON && *last_axis != 1)
     {
         *sel = (*sel + 1) % bsize;
-        *last_axis = 0;
+        *last_axis = 1;
     }
     else if (e.jaxis.value > -JOY_TRIGGER_OFF && e.jaxis.value < JOY_TRIGGER_OFF)
     {
         *last_axis = 0;
     }
-    else
-    {
-        printf("%d empty joy event\n",*sel);
-        return 0;
-    }
 
-    return 1;
+
+    return (temp!=*last_axis);
 }
 
 

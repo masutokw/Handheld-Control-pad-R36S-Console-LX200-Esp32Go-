@@ -610,6 +610,7 @@ int main(int argc, char *argv[])
 
             else if (e.type == SDL_JOYAXISMOTION)
             {
+                //printf(" joy %d %d \n ",e.jaxis.value,last_haxis);
                 if (e.jaxis.axis == 0)
                 {
                     jmove=readpad( e,&last_haxis,&sel_col,pad_page==4? ALP_COLS:COLS);
@@ -618,6 +619,7 @@ int main(int argc, char *argv[])
                 {
                     jmove=readpad( e,&last_vaxis,&sel_row,ROWS);
                 }
+                else jmove= 0;
 
 
             }
@@ -758,8 +760,14 @@ int main(int argc, char *argv[])
 
         }
 
-         if ((e.type == SDL_JOYAXISMOTION) && (jmove==0)) {printf("not refresh screen \n");} else
-         drawMainScreen(renderer,sel_row,sel_col);
+        if ((e.type == SDL_JOYAXISMOTION) && (jmove==0))
+        {
+            //printf("not refresh screen \n")
+            ;
+
+        }
+        else
+            drawMainScreen(renderer,sel_row,sel_col);
 
     }
 
